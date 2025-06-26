@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Hari Lahir, Sayang! - Log Masuk</title>
+    <!-- Google Fonts: Inter untuk tipografi yang lebih baik -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="">
+    
+    <style>
+        /* Import font Inter dari Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px; /* Padding untuk responsif pada skrin kecil */
+            /* Latar belakang gradien eksklusif: biru gelap ke kelabu arang */
+            background: linear-gradient(135deg, #1A237E 0%, #2C3E50 100%); 
+            color: #E0E0E0; /* Warna teks utama yang lebih cerah untuk kontras */
+            overflow: hidden; /* Elakkan scrollbar yang tidak perlu */
+            position: relative;
+        }
+
+        /* Overlay latar belakang untuk kesan visual */
+        .background-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Overlay gelap untuk kesan kedalaman */
+            backdrop-filter: blur(8px); /* Kesan kabur yang lebih ketara */
+            z-index: 0;
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.98); /* Hampir putih tulen */
+            padding: 40px 50px;
+            border-radius: 40px; /* Bentuk bulat seperti yang diminta */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25); /* Bayang yang lebih ketara */
+            max-width: 600px;
+            width: 100%; /* Lebar responsif */
+            text-align: center;
+            position: relative; /* Penting untuk z-index */
+            z-index: 1; /* Pastikan ia di atas overlay */
+            transform: translateY(0); /* Untuk animasi masuk */
+            opacity: 1;
+            transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+        }
+
+        /* Animasi masuk untuk elemen */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0; /* Bermula dengan opacity 0 */
+        }
+
+        .fade-in.delay-05 { animation-delay: 0.5s; } 
+        .fade-in.delay-1 { animation-delay: 0.2s; } 
+        .fade-in.delay-2 { animation-delay: 0.4s; } 
+        .fade-in.delay-3 { animation-delay: 0.6s; } 
+        .fade-in.delay-4 { animation-delay: 0.8s; } 
+
+        .login-container h1 {
+            color: #3F51B5; /* Biru indigo untuk tajuk utama */
+            margin-bottom: 15px;
+            font-size: 2.5em;
+            font-weight: 700;
+        }
+
+        /* Saiz dan kedudukan ikon kunci */
+        .security-icon {
+            font-size: 0.9em; /* Saiz ikon kunci, relatif kepada teks induk */
+            color: #607D8B; /* Kelabu kebiruan untuk ikon */
+            margin-right: 8px; /* Jarak antara ikon dan teks */
+            vertical-align: middle; /* Pastikan ikon selari dengan teks */
+        }
+
+        .security-question-label {
+            color: #78909C; /* Kelabu kebiruan lembut untuk label */
+            font-size: 0.95em;
+            margin-bottom: 10px;
+            font-weight: 500;
+            display: flex; /* Guna flexbox untuk menyusun ikon dan teks */
+            justify-content: center; /* Pusat di tengah */
+            align-items: center; /* Selaraskan secara vertikal */
+        }
+
+        .question-text {
+            color: #455A64; /* Kelabu kebiruan gelap untuk soalan */
+            margin-top: 0px; 
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+
+        .date-input-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .date-input {
+            width: 80%; /* Lebar input tarikh */
+            max-width: 300px; /* Maksimum lebar */
+            padding: 12px 15px;
+            border: 2px solid #90A4AE; /* Border kelabu kebiruan */
+            border-radius: 10px; /* Sudut bulat untuk input */
+            font-size: 1.1em;
+            color: #333;
+            background-color: #ECEFF1; /* Latar belakang cerah */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .date-input:focus {
+            border-color: #3F51B5; /* Border biru bila fokus */
+            box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.2); /* Kesan cahaya bila fokus */
+            outline: none;
+        }
+
+        .submit-btn {
+            background-color: #607D8B; /* Kelabu kebiruan yang dalam */
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px; /* Sudut bulat pada butang */
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .submit-btn:hover {
+            background-color: #455A64; /* Lebih gelap bila hover */
+            transform: translateY(-3px); /* Kesan angkat */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .message-display {
+            margin-top: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+            min-height: 24px; /* Untuk elak CLS bila mesej muncul */
+        }
+
+        .message-display.error {
+            color: #D32F2F; /* Merah standard untuk ralat (kontras penting) */
+        }
+
+        .message-display.success {
+            color: #4CAF50; /* Hijau standard untuk kejayaan (kontras penting) */
+        }
+
+        /* Media Queries untuk responsif (telefon bimbit) */
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 30px;
+                border-radius: 30px; /* Sesuaikan sedikit pada mobile untuk kebulatan */
+            }
+
+            .login-container h1 {
+                font-size: 2em;
+            }
+
+            .security-icon {
+                font-size: 0.8em; 
+            }
+
+            .question-text {
+                font-size: 1.5em;
+            }
+
+            .date-input {
+                width: 90%;
+                padding: 10px 12px;
+            }
+
+            .submit-btn {
+                font-size: 1.1em;
+                padding: 12px 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px; 
+            }
+            .login-container {
+                padding: 25px;
+                border-radius: 25px; /* Sesuaikan sedikit pada mobile untuk kebulatan */
+            }
+
+            .login-container h1 {
+                font-size: 1.8em;
+            }
+
+            .security-icon {
+                font-size: 0.7em; 
+            }
+
+            .question-text {
+                font-size: 1.3em;
+            }
+            .date-input {
+                width: 100%;
+            }
+            .submit-btn {
+                font-size: 1em;
+                padding: 10px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-overlay"></div> <!-- Untuk overlay latar belakang -->
+    <div class="login-container">
+        <h1 class="fade-in delay-1">Welcome to our special page!</h1>
+        
+        <!-- Icon kunci diletakkan di dalam tag <p> bersama teks "Soalan Keselamatan:" -->
+        <p class="security-question-label fade-in delay-2">
+            <i class="fas fa-lock security-icon"></i> Soalan Keselamatan:
+        </p>
+
+        <h2 class="question-text fade-in delay-3">Bilakah tarikh kita bernikah?</h2>
+        <div class="date-input-group fade-in delay-4">
+            <!-- Input jenis kalendar untuk memilih tarikh -->
+            <input type="date" id="marriageDate" class="date-input">
+            <!-- Butang untuk menghantar jawapan -->
+            <button id="submitDateBtn" class="submit-btn">Hantar Jawapan</button>
+        </div>
+        
+        <!-- Untuk memaparkan mesej ralat atau kejayaan -->
+        <p id="message" class="message-display"></p>
+    </div>
+
+    <script>
+        const dateInput = document.getElementById('marriageDate');
+        const submitButton = document.getElementById('submitDateBtn');
+        const messageDisplay = document.getElementById('message');
+
+        // Jawapan yang betul dalam format YYYY-MM-DD untuk perbandingan
+        const correctAnswer = "2014-05-31"; 
+
+        submitButton.addEventListener('click', () => {
+            const selectedDate = dateInput.value; // Dapatkan nilai tarikh dalam format YYYY-MM-DD
+
+            // Kosongkan mesej sebelum memaparkan yang baru
+            messageDisplay.textContent = '';
+            messageDisplay.classList.remove('success', 'error');
+
+            if (!selectedDate) {
+                messageDisplay.textContent = "Sila pilih tarikh terlebih dahulu.";
+                messageDisplay.classList.add('error');
+                return;
+            }
+
+            // Semak jika tarikh yang dipilih adalah betul
+            if (selectedDate === correctAnswer) {
+                // Jika jawapan betul, paparkan mesej kejayaan
+                messageDisplay.textContent = "Jawapan Betul! Membawa anda ke halaman seterusnya...";
+                messageDisplay.classList.add('success');
+                // Delay sedikit sebelum redirect untuk pengguna nampak mesej kejayaan
+                setTimeout(() => {
+                    window.location.href = 'birthday.html'; 
+                }, 1500); // Redirect selepas 1.5 saat
+            } else {
+                // Jika jawapan salah, paparkan mesej ralat
+                messageDisplay.textContent = "Jawapan salah. Sila cuba lagi!";
+                messageDisplay.classList.add('error');
+            }
+        });
+    </script>
+</body>
+</html>

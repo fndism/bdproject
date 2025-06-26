@@ -9,14 +9,18 @@
     <!-- Font Awesome untuk ikon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="">
     
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-storage-compat.js"></script>
+    
     <style>
         /* General Body Styling */
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
-            /* Latar belakang gradien pastel cerah: Kuning lembut ke Oren Pudar */
-            background: linear-gradient(135deg, #FFEFD5 0%, #FDFD96 100%); 
+            /* Latar belakang gradien pastel lembut: Pink Pudar ke Biru Muda Sangat Lembut */
+            background: linear-gradient(135deg, #FADADD 0%, #BFE7FF 100%); 
             color: #4A4A4A; /* Warna teks gelap lembut untuk kebolehbacaan */
             overflow-x: hidden; /* Elakkan scrollbar mendatar */
             line-height: 1.6;
@@ -24,37 +28,37 @@
 
         /* Header Section */
         header {
-            /* Gradien pastel: Pink lembut ke Peach */
-            background: linear-gradient(to right, #FFC0CB, #FFDAB9); 
-            color: #6A5ACD; /* Ungu sederhana untuk teks header */
+            /* Gradien pastel yang ceria dan menarik: Biru Muda ke Pink Lembut */
+            background: linear-gradient(to right, #ADD8E6, #FFB6C1); 
+            color: #FFF8F0; /* Warna teks lembut untuk header h1 */
             padding: 40px 20px;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); /* Bayang yang lebih lembut */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Bayang yang lebih ketara */
             border-bottom-left-radius: 30px;
             border-bottom-right-radius: 30px;
             animation: slideDown 0.8s ease-out forwards;
+            position: relative; 
+            z-index: 10; 
         }
 
         header h1 {
             font-size: 3.5em;
-            margin-bottom: 0; /* Buang margin-bottom */
+            margin-bottom: 0; 
             font-weight: 800;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Bayang yang lebih lembut */
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3); /* Bayang teks lebih ketara untuk 'pop' lembut */
             animation: fadeIn 1s ease-out forwards;
             animation-delay: 0.2s;
-            color: #FFF8F0; /* Warna teks lembut untuk h1 */
+            color: #FFF8F0; /* Warna teks lembut dan cerah */
         }
-
-        /* Removed header p element as requested */
 
         /* Main Content Styling */
         main {
             padding: 40px 20px;
             max-width: 900px;
             margin: 30px auto;
-            background-color: rgba(255, 255, 255, 0.95); /* Latar belakang putih lembut */
-            border-radius: 20px; /* Sudut bulat lembut */
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Bayang lebih lembut */
+            background-color: rgba(255, 255, 255, 0.9); /* Latar belakang putih lembut, sedikit lutsinar */
+            border-radius: 20px; 
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); 
             animation: fadeInUp 1s ease-out forwards;
             animation-delay: 0.6s;
         }
@@ -66,15 +70,15 @@
             align-items: center;
             margin-bottom: 50px;
             padding-bottom: 30px;
-            border-bottom: 1px solid #D1C4E9; /* Garisan pemisah pastel */
+            border-bottom: 1px solid #D1C4E9; /* Garisan pemisah pastel lembut */
         }
 
         .couple-image {
             width: 100%;
             max-width: 400px;
             height: auto;
-            border-radius: 50%; /* Membuat gambar bulat */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* Bayang lebih lembut */
+            border-radius: 50%; 
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); 
             object-fit: cover;
             margin-bottom: 30px;
             animation: zoomIn 1s ease-out forwards;
@@ -82,14 +86,14 @@
         }
 
         .message-card {
-            background-color: #E6EE9C; /* Latar belakang hijau limau pastel untuk mesej */
+            background-color: #E0FFE5; /* Latar belakang mint hijau pastel untuk mesej */
             padding: 30px;
-            border-radius: 15px; /* Sudut bulat untuk kad mesej */
+            border-radius: 15px; 
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
             font-size: 1.1em;
             line-height: 1.8;
             text-align: center;
-            color: #558B2F; /* Hijau gelap untuk teks mesej */
+            color: #2E8B57; /* Hijau laut gelap untuk teks mesej */
             animation: fadeIn 1s ease-out forwards;
             animation-delay: 1s;
         }
@@ -106,39 +110,35 @@
         /* Wrapper baru untuk setiap imej bagi mengawal nisbah aspek dan animasi */
         .image-container { 
             position: relative;
-            width: 100%; /* Ambil lebar penuh kontena utama */
-            padding-bottom: 56.25%; /* Nisbah Aspek 16:9 (ketinggian 56.25% dari lebar) */
-            margin-bottom: 20px; /* Jarak antara imej */
-            overflow: hidden; /* Pastikan kandungan terpotong mengikut border-radius */
+            width: 100%; 
+            padding-bottom: 56.25%; 
+            margin-bottom: 20px; 
+            overflow: hidden; 
             border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Bayang lebih lembut */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
 
-            /* Sifat animasi dialihkan dari img ke wrapper ini */
-            opacity: 0; /* Bermula tersembunyi */
-            transform: translateY(20px); /* Bermula sedikit di bawah */
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Transisi yang lancar */
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out; 
         }
 
-        /* Keadaan apabila wrapper imej kelihatan */
         .image-container.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Gaya untuk imej sebenar di dalam kontena */
         .image-container img {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Pastikan imej meliputi kawasan tanpa herotan */
+            object-fit: cover; 
         }
 
-        /* Kesan hover untuk kontena imej */
         .image-container:hover {
-            transform: scale(1.03); /* Sedikit membesar pada hover */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); /* Bayang lebih lembut */
+            transform: scale(1.03); 
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); 
         }
 
         /* New styles for the gift game section */
@@ -150,20 +150,20 @@
         }
 
         .gift-game-section h2 {
-            color: #8D6E63; /* Coklat lembut untuk tajuk */
+            color: #6A5ACD; /* Ungu sederhana yang lembut untuk tajuk */
             font-size: 2.2em;
             margin-bottom: 30px;
-            border-bottom: 2px solid #BCAAA4; /* Garisan pemisah yang sepadan */
+            border-bottom: 2px solid #D1C4E9; /* Garisan pemisah yang sepadan */
             display: inline-block;
             padding-bottom: 5px;
             animation: fadeIn 1s ease-out forwards;
-            animation-delay: 0.2s; /* Initial animation */
+            animation-delay: 0.2s; 
         }
 
         .gift-game-notes {
             font-size: 0.95em;
-            color: #795548; /* Coklat sederhana untuk nota */
-            margin-top: -20px; /* Bawa dekat dengan h2 */
+            color: #708090; /* Kelabu slate lembut untuk nota */
+            margin-top: -20px; 
             margin-bottom: 30px;
             font-style: italic;
             animation: fadeIn 1s ease-out forwards;
@@ -172,19 +172,19 @@
 
         .gift-boxes-container {
             display: flex;
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            flex-wrap: wrap; 
             justify-content: center;
-            gap: 25px; /* Spacing between gift boxes */
+            gap: 25px; 
             margin-top: 30px;
         }
 
         .gift-box {
-            background-color: #E0F2F7; /* Biru muda pastel untuk kotak hadiah */
-            border: 2px solid #B3E5FC; /* Border biru yang lebih lembut */
-            border-radius: 15px; /* Rounded corners for the box */
+            background-color: #F0F8FF; /* Alice Blue (biru sangat lembut) untuk kotak hadiah */
+            border: 2px solid #A3D9FF; /* Border biru lembut */
+            border-radius: 15px; 
             padding: 30px 20px;
-            width: 180px; /* Fixed width for consistent size */
-            height: 180px; /* Fixed height to make it somewhat square */
+            width: 180px; 
+            height: 180px; 
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -192,76 +192,75 @@
             text-align: center;
             font-size: 1.1em;
             font-weight: 600;
-            color: #0288D1; /* Biru gelap untuk teks */
+            color: #4682B4; /* Steel Blue untuk teks */
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-            animation: zoomIn 0.8s ease-out forwards; /* Initial animation for boxes */
-            opacity: 0; /* Start hidden */
-            transform: scale(0.8); /* Start slightly smaller */
+            animation: zoomIn 0.8s ease-out forwards; 
+            opacity: 0; 
+            transform: scale(0.8); 
         }
 
-        /* Specific delays for gift boxes */
         .gift-box:nth-child(1) { animation-delay: 0.4s; }
         .gift-box:nth-child(2) { animation-delay: 0.6s; }
         .gift-box:nth-child(3) { animation-delay: 0.8s; }
 
 
-        .gift-box:hover:not(.claimed) { /* Only hover if not claimed */
-            background-color: #81D4FA; /* Biru yang lebih terang pada hover */
-            color: white; /* Putih pada hover */
-            transform: scale(1.08) rotate(2deg); /* Slightly larger and rotated on hover */
+        .gift-box:hover:not(.claimed) { 
+            background-color: #A3D9FF; /* Biru terang lembut pada hover */
+            color: white; 
+            transform: scale(1.08) rotate(2deg); 
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
-        .gift-box.claimed { /* Style for claimed box */
+        .gift-box.claimed { 
             cursor: not-allowed;
             opacity: 0.7;
-            background-color: #CFD8DC; /* Kelabu muda apabila ditebus */
-            color: #90A4AE;
+            background-color: #E0E0E0; /* Kelabu lembut apabila ditebus */
+            color: #A0A0A0;
             transform: none;
             box-shadow: none;
-            border-color: #B0BEC5;
+            border-color: #C0C0C0;
         }
 
-        .gift-box i { /* For potential icons in the future */
+        .gift-box i { 
             font-size: 2.5em;
             margin-bottom: 15px;
-            color: #03A9F4; /* Biru cerah untuk ikon */
+            color: #4682B4; /* Steel Blue untuk ikon */
         }
         .gift-box:hover:not(.claimed) i {
             color: white;
         }
         .gift-box.claimed i {
-            color: #78909C;
+            color: #808080;
         }
 
         /* Footer */
         footer {
             text-align: center;
             padding: 30px 20px;
-            background-color: #D1C4E9; /* Ungu pastel untuk footer */
-            color: #673AB7; /* Ungu gelap untuk teks */
+            background-color: #C3D9EC; /* Biru kelabu pastel untuk footer */
+            color: #4682B4; /* Steel Blue untuk teks */
             border-top-left-radius: 30px;
             border-top-right-radius: 30px;
             margin-top: 50px;
             box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.15);
             animation: slideUp 0.8s ease-out forwards;
             animation-delay: 2.2s;
-            display: flex; /* Menggunakan flexbox untuk penyelarasan */
+            display: flex; 
             justify-content: center;
             align-items: center;
-            flex-wrap: wrap; /* Benarkan wrapping pada skrin kecil */
-            gap: 5px; /* Jarak antara elemen footer */
+            flex-wrap: wrap; 
+            gap: 5px; 
         }
 
         /* Styling for the love symbol SVG */
         .love-symbol {
-            width: 1em; /* Saiz simbol cinta relatif kepada saiz font */
+            width: 1em; 
             height: 1em;
-            fill: #E53935; /* Warna merah hati */
-            vertical-align: middle; /* Jajar di tengah secara vertikal dengan teks */
-            margin: 0 4px; /* Sedikit jarak di kiri dan kanan */
+            fill: #FF69B4; /* Hot Pink untuk simbol hati */
+            vertical-align: middle; 
+            margin: 0 4px; 
         }
 
         /* Animations */
@@ -297,25 +296,25 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.4); /* Overlay yang lebih lembut */
-            display: none; /* Initially hidden from layout */
+            background: rgba(0, 0, 0, 0.3); /* Overlay yang lebih lembut */
+            display: none; 
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            opacity: 0; /* For fade in/out */
-            transition: opacity 0.3s ease; /* Only transition opacity */
+            opacity: 0; 
+            transition: opacity 0.3s ease; 
         }
 
         .message-box-overlay.show {
-            display: flex; /* Make it visible in layout */
+            display: flex; 
             opacity: 1;
         }
 
         .message-box {
-            background: #FFFAF0; /* Putih keju untuk kotak mesej */
+            background: #F8F8F8; /* Off-white untuk kotak mesej */
             padding: 30px;
-            border-radius: 15px; /* Sudut bulat */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Bayang lebih lembut */
+            border-radius: 15px; 
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); 
             text-align: center;
             max-width: 350px;
             width: 90%;
@@ -337,24 +336,24 @@
 
         /* Style for the "Hadiah Birthday Syg:" text */
         .message-box .prize-title {
-            font-size: 1.1em; /* Slightly smaller than h3, but distinct */
+            font-size: 1.1em; 
             font-weight: 600;
-            color: #000000; /* Warna hitam seperti yang diminta */
-            margin-top: 10px; /* Space from Tahniah */
-            margin-bottom: 5px; /* Space to prize value */
+            color: #000000; 
+            margin-top: 10px; 
+            margin-bottom: 5px; 
         }
 
         /* Style for prize message (e.g., GoldBar 0.1g) */
         .message-box .prize-value { 
             font-size: 1.2em;
-            font-weight: 700; /* Bolder for the prize itself */
-            color: #FF69B4; /* Pink terang untuk nilai hadiah */
-            margin-bottom: 5px; /* Space to prize delivery note */
+            font-weight: 700; 
+            color: #FF69B4; /* Hot Pink untuk nilai hadiah */
+            margin-bottom: 5px; 
         }
 
-        .message-box .prize-note { /* Style for prize delivery note */
+        .message-box .prize-note { 
             font-size: 0.85em;
-            color: #795548; /* Coklat lembut untuk nota */
+            color: #795548; 
             font-style: italic;
             margin-top: 5px;
             margin-bottom: 20px;
@@ -362,7 +361,7 @@
 
 
         .message-box button {
-            background-color: #9CCC65; /* Hijau lembut untuk butang OK */
+            background-color: #6A5ACD; /* Ungu sederhana lembut untuk butang OK */
             color: white;
             border: none;
             padding: 10px 20px;
@@ -372,17 +371,17 @@
         }
 
         .message-box button:hover {
-            background-color: #8BC34A; /* Hijau lebih gelap pada hover */
+            background-color: #483D8B; /* Ungu gelap pada hover */
         }
 
         /* Warna untuk jenis mesej */
-        .message-box.error h3 { color: #EF9A9A; } /* Merah pudar untuk ralat */
-        .message-box.error button { background-color: #E57373; }
-        .message-box.error button:hover { background-color: #EF5350; }
+        .message-box.error h3 { color: #FF6347; } /* Tomato untuk ralat */
+        .message-box.error button { background-color: #FF6347; }
+        .message-box.error button:hover { background-color: #E0523C; }
 
-        .message-box.success h3 { color: #A5D6A7; } /* Hijau pudar untuk kejayaan */
-        .message-box.success button { background-color: #66BB6A; }
-        .message-box.success button:hover { background-color: #4CAF50; }
+        .message-box.success h3 { color: #2E8B57; } /* Sea Green untuk kejayaan */
+        .message-box.success button { background-color: #2E8B57; }
+        .message-box.success button:hover { background-color: #257C48; }
 
 
         /* Media Queries for Responsiveness */
@@ -390,8 +389,6 @@
             header h1 {
                 font-size: 2.8em;
             }
-
-            /* Removed header p rule */
 
             main {
                 padding: 30px 15px;
@@ -446,8 +443,6 @@
                 font-size: 2.2em;
             }
 
-            /* Removed header p rule */
-
             main {
                 padding: 20px 10px;
                 margin: 15px auto;
@@ -490,21 +485,18 @@
 </head>
 <body>
     <!-- Background Music (Autoplay might be blocked by browsers) -->
-    <!-- Anda boleh gantikan 'your-beautiful-song.mp3' dengan laluan fail audio sebenar anda. -->
     <audio id="backgroundMusic" loop autoplay>
-        <source src="your-beautiful-song.mp3" type="audio/mpeg">
+        <source src="" type="audio/mpeg"> <!-- src akan ditetapkan oleh JS -->
         Your browser does not support the audio element.
     </audio>
 
     <header>
         <h1 class="animate-text">Selamat Hari Lahir, Sayangku!</h1>
-        <!-- Removed the specific name paragraph as requested -->
     </header>
 
     <main>
         <section class="hero-section">
-            <!-- Gantikan 'https://placehold.co/400x400/FFD700/FFFFFF?text=Abang+%26+Sayang' dengan URL gambar sebenar anda -->
-            <img src="https://photos.app.goo.gl/Hb2AVvXBiLfkky2K6" alt="Sayangku" class="couple-image">
+            <img id="coupleImage" src="" alt="Gambar Abang dan Sayang" class="couple-image">
             <div class="message-card">
                 <p>
                     Wahai bidadari syurgaku, Selamat Ulang Tahun Kelahiran! Setiap tahun bersamamu adalah anugerah terindah yang tidak ternilai. Semoga usia yang bertambah ini membawa lebih banyak kebahagiaan, kesihatan yang berpanjangan, dan sentiasa dalam lindungan rahmat Allah SWT. Abang doakan sayang sentiasa bahagia dan impian sayang tercapai. Terima kasih atas setiap senyuman, tawa, dan kasih sayang yang tidak pernah putus. Kaulah cahaya dalam hidup abang. I love you, now and always! ❤️
@@ -517,22 +509,22 @@
             <div class="photo-grid">
                 <!-- Setiap gambar dibungkus dalam div.image-container untuk nisbah aspek 16:9 dan animasi -->
                 <div class="image-container scroll-animate-image">
-                    <img src="https://placehold.co/600x337/8BC34A/FFFFFF?text=Memori+1" alt="Memori 1">
+                    <img id="memori1" src="" alt="Memori 1">
                 </div>
                 <div class="image-container scroll-animate-image">
-                    <img src="https://placehold.co/600x337/FFB74D/FFFFFF?text=Memori+2" alt="Memori 2">
+                    <img id="memori2" src="" alt="Memori 2">
                 </div>
                 <div class="image-container scroll-animate-image">
-                    <img src="https://placehold.co/600x337/FF8A65/FFFFFF?text=Memori+3" alt="Memori 3">
+                    <img id="memori3" src="" alt="Memori 3">
                 </div>
                 <div class="image-container scroll-animate-image">
-                    <img src="https://placehold.co/600x337/4FC3F7/FFFFFF?text=Memori+4" alt="Memori 4">
+                    <img id="memori4" src="" alt="Memori 4">
                 </div>
                 <div class="image-container scroll-animate-image">
-                    <img src="https://placehold.co/600x337/BA68C8/FFFFFF?text=Memori+5" alt="Memori 5">
+                    <img id="memori5" src="" alt="Memori 5">
                 </div>
                 <div class="image-container scroll-animate-image">
-                    <img src="https://placehold.co/600x337/FFF176/FFFFFF?text=Memori+6" alt="Memori 6">
+                    <img id="memori6" src="" alt="Memori 6">
                 </div>
             </div>
         </section>
@@ -562,6 +554,67 @@
     </footer>
 
     <script>
+        // Your web app's Firebase configuration.
+        // !!! PENTING: Gantikan placeholder di bawah dengan konfigurasi Firebase anda yang sebenar
+        //     yang boleh didapati dari Firebase Console anda. !!!
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET", // PENTING: Pastikan ini adalah Storage Bucket anda
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        let storage;
+        let app; 
+        try {
+            app = firebase.initializeApp(firebaseConfig);
+            storage = firebase.storage(); // Inisialisasi Firebase Storage
+            console.log("Firebase app and Storage initialized successfully.");
+        } catch (error) {
+            console.error("Firebase initialization failed:", error);
+            showMessageBox("Gagal memulakan Firebase. Sila semak konfigurasi Firebase anda. Maklumat ralat: " + error.message, "error");
+        }
+
+        // Fungsi untuk memuatkan gambar dari Firebase Storage
+        async function loadImageFromFirebase(elementId, storagePath) {
+            if (!storage) {
+                console.error("Firebase Storage not initialized. Cannot load image.");
+                return;
+            }
+            const imageRef = storage.ref(storagePath);
+            try {
+                const url = await imageRef.getDownloadURL();
+                document.getElementById(elementId).src = url;
+                console.log(`Loaded image from ${storagePath}: ${url}`);
+            } catch (error) {
+                console.error(`Error loading image from ${storagePath}:`, error);
+                // Fallback ke gambar placeholder jika gagal memuatkan
+                document.getElementById(elementId).src = "https://placehold.co/400x400/CCCCCC/000000?text=Gagal+Memuat+Gambar";
+            }
+        }
+
+        // Fungsi untuk memuatkan audio dari Firebase Storage
+        async function loadAudioFromFirebase(elementId, storagePath, mimeType) {
+            if (!storage) {
+                console.error("Firebase Storage not initialized. Cannot load audio.");
+                return;
+            }
+            const audioRef = storage.ref(storagePath);
+            try {
+                const url = await audioRef.getDownloadURL();
+                const audioElement = document.getElementById(elementId);
+                audioElement.innerHTML = `<source src="${url}" type="${mimeType}">Your browser does not support the audio element.`;
+                audioElement.load(); // Muat semula elemen audio untuk apply sumber baru
+                console.log(`Loaded audio from ${storagePath}: ${url}`);
+            } catch (error) {
+                console.error(`Error loading audio from ${storagePath}:`, error);
+                // Tangani ralat, contoh: paparkan mesej atau matikan muzik
+            }
+        }
+
         window.addEventListener('load', () => {
             const music = document.getElementById('backgroundMusic');
             music.play().catch(error => {
@@ -570,6 +623,23 @@
         });
 
         document.addEventListener('DOMContentLoaded', () => {
+            // Muat gambar utama pasangan
+            // Pastikan anda memuat naik 'couple.jpg' ke dalam folder 'images' di Firebase Storage anda
+            loadImageFromFirebase('coupleImage', 'images/couple.jpg'); 
+
+            // Muat gambar galeri memori
+            // Pastikan anda memuat naik 'memori1.jpg' hingga 'memori6.jpg' ke dalam folder 'images' di Firebase Storage anda
+            loadImageFromFirebase('memori1', 'images/memori1.jpg');
+            loadImageFromFirebase('memori2', 'images/memori2.jpg');
+            loadImageFromFirebase('memori3', 'images/memori3.jpg');
+            loadImageFromFirebase('memori4', 'images/memori4.jpg');
+            loadImageFromFirebase('memori5', 'images/memori5.jpg');
+            loadImageFromFirebase('memori6', 'images/memori6.jpg');
+
+            // Muat muzik latar belakang
+            // Pastikan anda memuat naik 'beautiful_song.mp3' ke dalam folder 'music' di Firebase Storage anda
+            loadAudioFromFirebase('backgroundMusic', 'music/beautiful_song.mp3', 'audio/mpeg'); // Contoh: audio/mpeg untuk .mp3
+
             const imageContainers = document.querySelectorAll('.image-container.scroll-animate-image');
 
             const observerOptions = {

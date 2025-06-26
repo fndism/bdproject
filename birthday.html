@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Hari Lahir, Sayangku! 🎉</title>
+    <!-- Google Fonts: Inter untuk tipografi yang lebih baik -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="">
+    
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            /* Latar belakang gradien ceria: Biru muda ke Hijau Pudar */
+            background: linear-gradient(135deg, #E0F2F7 0%, #E8F5E9 100%); 
+            color: #333; /* Warna teks gelap untuk kebolehbacaan */
+            overflow-x: hidden; /* Elakkan scrollbar mendatar */
+            line-height: 1.6;
+        }
+
+        /* Header Section */
+        header {
+            /* Gradien ceria: Peach ke Oren Lembut */
+            background: linear-gradient(to right, #FFAB91, #FFCC80); 
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            animation: slideDown 0.8s ease-out forwards;
+        }
+
+        header h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Kurangkan sedikit bayang */
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 0.2s;
+        }
+
+        header p {
+            font-size: 1.5em;
+            font-weight: 300;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 0.4s;
+        }
+
+        /* Main Content Styling */
+        main {
+            padding: 40px 20px;
+            max-width: 900px;
+            margin: 30px auto;
+            background-color: rgba(255, 255, 255, 0.98); /* Lebih putih untuk kontras */
+            border-radius: 20px; /* Sudut bulat lembut */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 1s ease-out forwards;
+            animation-delay: 0.6s;
+        }
+
+        /* Hero Section (Image & Message) */
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #CFD8DC; /* Garisan pemisah yang lebih lembut */
+        }
+
+        .couple-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 50%; /* Membuat gambar bulat */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            object-fit: cover;
+            margin-bottom: 30px;
+            animation: zoomIn 1s ease-out forwards;
+            animation-delay: 0.8s;
+        }
+
+        .message-card {
+            background-color: #E8F5E9; /* Latar belakang hijau pudar untuk mesej */
+            padding: 30px;
+            border-radius: 15px; /* Sudut bulat untuk kad mesej */
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            font-size: 1.1em;
+            line-height: 1.8;
+            text-align: center;
+            color: #388E3C; /* Warna hijau gelap untuk teks */
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 1s;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            margin-bottom: 50px;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            justify-content: center;
+        }
+
+        /* Style for images that animate on scroll */
+        .scroll-animate-image {
+            width: 100%;
+            height: 150px; /* Ketinggian tetap untuk gambar grid */
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            opacity: 0; /* Bermula tersembunyi */
+            transform: translateY(20px); /* Bermula sedikit di bawah */
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* Transisi yang lancar */
+        }
+
+        /* State when image is visible */
+        .scroll-animate-image.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-animate-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Guestbook Section (Firebase integration) */
+        .guestbook-section {
+            margin-bottom: 40px;
+        }
+
+        .guestbook-section h2 {
+            text-align: center;
+            color: #4DD0E1; /* Biru/Cyan cerah untuk tajuk */
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #80DEEA; /* Garisan pemisah yang sepadan */
+            display: inline-block;
+            padding-bottom: 5px;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 1.6s;
+        }
+
+        .guestbook-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 1.8s;
+        }
+
+        .guestbook-form input,
+        .guestbook-form textarea {
+            padding: 12px;
+            border: 1px solid #B2EBF2; /* Border biru muda lembut */
+            border-radius: 8px;
+            font-size: 1em;
+            color: #4A4A4A;
+            background-color: #F8F8F8;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .guestbook-form input:focus,
+        .guestbook-form textarea:focus {
+            border-color: #00BCD4; /* Biru terang pada fokus */
+            box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.2);
+            outline: none;
+        }
+
+        .guestbook-form button {
+            background-color: #64B5F6; /* Biru ceria untuk butang */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .guestbook-form button:hover {
+            background-color: #42A5F5; /* Biru lebih gelap pada hover */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .wishes-display {
+            background-color: #E3F2FD; /* Latar belakang biru sangat muda untuk ucapan */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+            max-height: 400px; /* Ketinggian maksimum untuk ucapan yang boleh digulir */
+            overflow-y: auto; /* Dayakan pengguliran jika terlalu banyak ucapan */
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 2s;
+        }
+
+        .wish-item {
+            background-color: #FFFFFF;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid #81D4FA; /* Biru terang sebagai border kiri */
+        }
+
+        .wish-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .wish-item h3 {
+            color: #4A4A4A;
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 1.2em;
+        }
+
+        .wish-item p {
+            color: #666;
+            margin-bottom: 5px;
+            font-size: 0.95em;
+        }
+
+        .wish-item small {
+            color: #999;
+            font-size: 0.8em;
+            display: block; /* Pastikan cap masa berada di barisnya sendiri */
+            text-align: right;
+        }
+
+        /* New styles for the gift game section */
+        .gift-game-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #CFD8DC;
+            text-align: center;
+        }
+
+        .gift-game-section h2 {
+            color: #FF7043; /* Warm Orange for the heading */
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #FFAB91; /* Matching border */
+            display: inline-block;
+            padding-bottom: 5px;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 0.2s; /* Initial animation */
+        }
+
+        .gift-boxes-container {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            justify-content: center;
+            gap: 25px; /* Spacing between gift boxes */
+            margin-top: 30px;
+        }
+
+        .gift-box {
+            background-color: #FFF3E0; /* Very light orange/cream */
+            border: 2px solid #FFAB91; /* Soft peach border */
+            border-radius: 15px; /* Rounded corners for the box */
+            padding: 30px 20px;
+            width: 180px; /* Fixed width for consistent size */
+            height: 180px; /* Fixed height to make it somewhat square */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #E65100; /* Deep orange for text */
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            animation: zoomIn 0.8s ease-out forwards; /* Initial animation for boxes */
+            opacity: 0; /* Start hidden */
+            transform: scale(0.8); /* Start slightly smaller */
+        }
+
+        /* Specific delays for gift boxes */
+        .gift-box:nth-child(1) { animation-delay: 0.4s; }
+        .gift-box:nth-child(2) { animation-delay: 0.6s; }
+        .gift-box:nth-child(3) { animation-delay: 0.8s; }
+
+
+        .gift-box:hover {
+            background-color: #FFAB91; /* Peach on hover */
+            color: white; /* White text on hover for better contrast */
+            transform: scale(1.08) rotate(2deg); /* Slightly larger and rotated on hover */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .gift-box i { /* For potential icons in the future */
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #FF7043; /* Orange for icon */
+        }
+        .gift-box:hover i {
+            color: white;
+        }
+
+        .gift-note {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #795548; /* Coklat lembut */
+            font-style: italic;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 1s; /* Delay selepas kotak hadiah */
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: #F0F4C3; /* Latar belakang kuning pudar untuk footer */
+            color: #795548; /* Coklat lembut untuk teks */
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            margin-top: 50px;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+            animation: slideUp 0.8s ease-out forwards;
+            animation-delay: 2.2s;
+            display: flex; /* Menggunakan flexbox untuk penyelarasan */
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap; /* Benarkan wrapping pada skrin kecil */
+            gap: 5px; /* Jarak antara elemen footer */
+        }
+
+        /* Styling for the love symbol SVG */
+        .love-symbol {
+            width: 1em; /* Saiz simbol cinta relatif kepada saiz font */
+            height: 1em;
+            fill: #E53935; /* Warna merah hati */
+            vertical-align: middle; /* Jajar di tengah secara vertikal dengan teks */
+            margin: 0 4px; /* Sedikit jarak di kiri dan kanan */
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Custom Message Box CSS (digunakan oleh showMessageBox()) */
+        .message-box-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6); /* Overlay yang sedikit gelap */
+            display: none; /* Initially hidden from layout */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0; /* For fade in/out */
+            transition: opacity 0.3s ease; /* Only transition opacity */
+        }
+
+        .message-box-overlay.show {
+            display: flex; /* Make it visible in layout */
+            opacity: 1;
+        }
+
+        .message-box {
+            background: #FFFFFF; /* Latar belakang kotak mesej putih bersih */
+            padding: 30px;
+            border-radius: 15px; /* Sudut bulat */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Bayang yang lebih ketara */
+            text-align: center;
+            max-width: 350px;
+            width: 90%;
+            transform: translateY(-20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .message-box-overlay.show .message-box {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .message-box h3 {
+            margin-top: 0;
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .message-box p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        .message-box button {
+            background-color: #64B5F6; /* Warna butang OK yang ceria */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .message-box button:hover {
+            background-color: #42A5F5; /* Warna butang OK pada hover */
+        }
+
+        /* Warna untuk jenis mesej */
+        .message-box.error h3 { color: #E53935; } /* Merah terang untuk ralat */
+        .message-box.error button { background-color: #E53935; }
+        .message-box.error button:hover { background-color: #C62828; }
+
+        .message-box.success h3 { color: #4CAF50; } /* Hijau terang untuk kejayaan */
+        .message-box.success button { background-color: #4CAF50; }
+        .message-box.success button:hover { background-color: #388E3C; }
+
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.8em;
+            }
+
+            header p {
+                font-size: 1.2em;
+            }
+
+            main {
+                padding: 30px 15px;
+                margin: 20px auto;
+            }
+
+            .hero-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .couple-image {
+                max-width: 300px;
+            }
+
+            .message-card {
+                padding: 20px;
+                font-size: 1em;
+            }
+
+            .gallery-section h2,
+            .guestbook-section h2,
+            .gift-game-section h2 { /* Added gift game h2 */
+                font-size: 1.8em;
+            }
+
+            .photo-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 15px;
+            }
+
+            .scroll-animate-image {
+                height: 120px;
+            }
+
+            .guestbook-form input,
+            .guestbook-form textarea,
+            .guestbook-form button {
+                font-size: 0.95em;
+                padding: 10px;
+            }
+            .gift-box { /* Responsive for gift boxes */
+                width: 150px;
+                height: 150px;
+                padding: 25px 15px;
+                font-size: 1em;
+            }
+            .gift-box i {
+                font-size: 2em;
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 30px 10px;
+            }
+
+            header h1 {
+                font-size: 2.2em;
+            }
+
+            header p {
+                font-size: 1em;
+            }
+
+            main {
+                padding: 20px 10px;
+                margin: 15px auto;
+            }
+
+            .couple-image {
+                max-width: 250px;
+            }
+
+            .message-card {
+                padding: 15px;
+                font-size: 0.9em;
+            }
+
+            .gallery-section h2,
+            .guestbook-section h2,
+            .gift-game-section h2 { /* Added gift game h2 */
+                font-size: 1.6em;
+            }
+
+            .photo-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                gap: 10px;
+            }
+
+            .scroll-animate-image {
+                height: 100px;
+            }
+
+            .wishes-display {
+                padding: 15px;
+            }
+
+            .wish-item {
+                padding: 10px;
+            }
+
+            .wish-item h3 {
+                font-size: 1.1em;
+            }
+
+            .wish-item p {
+                font-size: 0.85em;
+            }
+            .gift-box { /* Responsive for gift boxes */
+                width: 120px;
+                height: 120px;
+                padding: 20px 10px;
+                font-size: 0.9em;
+            }
+            .gift-box i {
+                font-size: 1.8em;
+                margin-bottom: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Music (Autoplay might be blocked by browsers) -->
+    <!-- Anda boleh gantikan 'your-beautiful-song.mp3' dengan laluan fail audio sebenar anda. -->
+    <audio id="backgroundMusic" loop autoplay>
+        <source src="your-beautiful-song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <header>
+        <h1 class="animate-text">Selamat Hari Lahir, Sayangku!</h1>
+        <p class="animate-text">Untuk permata hati abang, [Nama Isteri Awak]</p>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <!-- Gantikan 'https://placehold.co/400x400/FFD700/FFFFFF?text=Abang+%26+Sayang' dengan URL gambar sebenar anda -->
+            <img src="https://placehold.co/400x400/FFD700/FFFFFF?text=Abang+%26+Sayang" alt="Gambar Abang dan Sayang" class="couple-image">
+            <div class="message-card">
+                <p>
+                    Wahai bidadari syurgaku, Selamat Ulang Tahun Kelahiran! Setiap tahun bersamamu adalah anugerah terindah yang tidak ternilai. Semoga usia yang bertambah ini membawa lebih banyak kebahagiaan, kesihatan yang berpanjangan, dan sentiasa dalam lindungan rahmat Allah SWT. Abang doakan sayang sentiasa bahagia dan impian sayang tercapai. Terima kasih atas setiap senyuman, tawa, dan kasih sayang yang tidak pernah putus. Kaulah cahaya dalam hidup abang. I love you, now and always! ❤️
+                </p>
+                <p>— Daripada Suami Tercintamu</p>
+            </div>
+        </section>
+
+        <section class="gallery-section">
+            <!-- H2 "Memori Indah Kita" telah dibuang seperti yang diminta -->
+            <div class="photo-grid">
+                <!-- Gantikan dengan URL gambar sebenar anda -->
+                <!-- Kelas 'scroll-animate-image' untuk kesan fade-in semasa scroll -->
+                <img src="https://placehold.co/150x150/FFECB3/8B4513?text=Memori+1" alt="Memori 1" class="scroll-animate-image">
+                <img src="https://placehold.co/150x150/FFECB3/8B4513?text=Memori+2" alt="Memori 2" class="scroll-animate-image">
+                <img src="https://placehold.co/150x150/FFECB3/8B4513?text=Memori+3" alt="Memori 3" class="scroll-animate-image">
+                <img src="https://placehold.co/150x150/FFECB3/8B4513?text=Memori+4" alt="Memori 4" class="scroll-animate-image">
+                <img src="https://placehold.co/150x150/FFECB3/8B4513?text=Memori+5" alt="Memori 5" class="scroll-animate-image">
+                <img src="https://placehold.co/150x150/FFECB3/8B4513?text=Memori+6" alt="Memori 6" class="scroll-animate-image">
+            </div>
+        </section>
+
+        <section class="guestbook-section">
+            <h2>Tinggalkan Ucapan!</h2>
+            <form id="wishForm" class="guestbook-form">
+                <input type="text" id="wishName" placeholder="Nama Anda" required>
+                <textarea id="wishMessage" placeholder="Ucapan Anda yang istimewa..." rows="4" required></textarea>
+                <button type="submit">Hantar Ucapan</button>
+            </form>
+            <div id="wishesDisplay" class="wishes-display">
+                <!-- Ucapan dari Firebase akan muncul di sini -->
+                <div class="wish-item">
+                    <h3>Abang</h3>
+                    <p>Selamat hari jadi sayang, semoga sentiasa dalam rahmat Allah dan bahagia di samping abang!</p>
+                    <small>25 Jun 2025, 08:00 AM</small>
+                </div>
+                <div class="wish-item">
+                    <h3>Kak Long</h3>
+                    <p>Happy Birthday! Semoga dipanjangkan umur dan murah rezeki. Sayang selalu!</p>
+                    <small>25 Jun 2025, 09:30 AM</small>
+                </div>
+            </div>
+        </section>
+
+        <section class="gift-game-section">
+            <h2>Nak Hadiah? Pilih salah satu hadiah di bawah:</h2>
+            <div class="gift-boxes-container">
+                <div class="gift-box" id="giftBox1">
+                    <i class="fas fa-gift"></i>
+                    Pilihan 1
+                </div>
+                <div class="gift-box" id="giftBox2">
+                    <i class="fas fa-box-open"></i>
+                    Pilihan 2
+                </div>
+                <div class="gift-box" id="giftBox3">
+                    <i class="fas fa-gem"></i>
+                    Pilihan 3
+                </div>
+            </div>
+            <p class="gift-note">Hadiah akan dihantar selepas ini.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Fendy <svg class="love-symbol" viewBox="0 0 24 24"><path d="M12 21.35l-1.84-1.83c-5.46-4.86-9.16-8.13-9.16-12.17 0-3.1 2.4-5.5 5.5-5.5 2.12 0 3.93 1.25 4.84 3.03.91-1.78 2.72-3.03 4.84-3.03 3.1 0 5.5 2.4 5.5 5.5 0 4.04-3.7 7.31-9.16 12.17L12 21.35z"/></svg> Shikin © 2025 and counting..</p>
+    </footer>
+
+    <!-- Firebase SDK & Initialization -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <script>
+        // Your web app's Firebase configuration.
+        // !!! PENTING: Gantikan placeholder di bawah dengan konfigurasi Firebase anda yang sebenar
+        //     yang boleh didapati dari Firebase Console anda. !!!
+        // Contoh:
+        // const firebaseConfig = {
+        //   apiKey: "AIzaSyC...",
+        //   authDomain: "your-project-id.firebaseapp.com",
+        //   projectId: "your-project-id",
+        //   storageBucket: "your-project-id.appspot.com",
+        //   messagingSenderId: "...",
+        //   appId: "1:..."
+        // };
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        let db; 
+        try {
+            const app = firebase.initializeApp(firebaseConfig);
+            db = firebase.firestore();
+            console.log("Firebase initialized successfully.");
+        } catch (error) {
+            console.error("Firebase initialization failed:", error);
+            showMessageBox("Gagal memulakan Firebase. Sila semak konfigurasi Firebase anda. Maklumat ralat: " + error.message, "error");
+        }
+
+
+        const wishForm = document.getElementById('wishForm');
+        const wishesDisplay = document.getElementById('wishesDisplay');
+
+        // Function to submit a wish
+        wishForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('wishName').value;
+            const message = document.getElementById('wishMessage').value;
+
+            if (name.trim() === '' || message.trim() === '') {
+                showMessageBox('Nama dan ucapan tidak boleh kosong!', 'error');
+                return;
+            }
+
+            if (!db) { 
+                showMessageBox('Pangkalan data tidak tersedia. Sila cuba lagi kemudian.', 'error');
+                return;
+            }
+
+            try {
+                await db.collection("wishes").add({
+                    name: name,
+                    message: message,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                showMessageBox('Ucapan anda telah dihantar!', 'success');
+                wishForm.reset(); 
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                if (error.code === 'permission-denied') {
+                    showMessageBox('Maaf, tidak dapat menghantar ucapan. Kebenaran ditolak. Sila semak peraturan keselamatan Firestore anda.', 'error');
+                } else {
+                    showMessageBox('Maaf, ada masalah menghantar ucapan: ' + error.message, 'error');
+                }
+            }
+        });
+
+        // Function to display wishes in real-time
+        if (db) {
+            db.collection("wishes").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
+                wishesDisplay.innerHTML = ''; 
+                snapshot.forEach((doc) => {
+                    const wish = doc.data();
+                    const wishElement = document.createElement('div');
+                    wishElement.classList.add('wish-item');
+
+                    const date = wish.timestamp ? new Date(wish.timestamp.toDate()).toLocaleString('ms-MY', {
+                        year: 'numeric', month: 'long', day: 'numeric',
+                        hour: '2-digit', minute: '2-digit'
+                    }) : 'Memuatkan...'; 
+
+                    wishElement.innerHTML = `
+                        <h3>${wish.name}</h3>
+                        <p>${wish.message}</p>
+                        <small>${date}</small>
+                    `;
+                    wishesDisplay.appendChild(wishElement);
+                });
+            }, (error) => {
+                console.error("Error listening to wishes: ", error);
+                if (error.code === 'permission-denied') {
+                    wishesDisplay.innerHTML = `<p style="color: red;">Tidak dapat memuatkan ucapan: Kebenaran ditolak. Sila semak peraturan keselamatan Firestore anda.</p>`;
+                } else {
+                    wishesDisplay.innerHTML = `<p style="color: red;">Tidak dapat memuatkan ucapan: ${error.message}</p>`;
+                }
+            });
+        } else {
+            console.warn("Pangkalan data Firestore tidak dimulakan. Tidak dapat mendengar ucapan.");
+            wishesDisplay.innerHTML = `<p style="color: red;">Pangkalan data ucapan tidak tersedia. Sila semak konfigurasi Firebase anda.</p>`;
+        }
+
+
+        // Optional: Play music after user interaction due to browser autoplay policies
+        window.addEventListener('load', () => {
+            const music = document.getElementById('backgroundMusic');
+            music.play().catch(error => {
+                console.log("Main automatik dihalang. Interaksi pengguna diperlukan untuk memainkan muzik."); 
+            });
+        });
+
+        // --- Intersection Observer for Scroll Animations ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const images = document.querySelectorAll('.scroll-animate-image');
+
+            const observerOptions = {
+                root: null, 
+                rootMargin: '0px',
+                threshold: 0.1 
+            };
+
+            const observerCallback = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            };
+
+            const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+            images.forEach(image => {
+                observer.observe(image);
+            });
+
+            // --- Gift Box Interaction ---
+            const giftBoxes = document.querySelectorAll('.gift-box');
+            giftBoxes.forEach(box => {
+                box.addEventListener('click', () => {
+                    showMessageBox('GoldBar 0.1g (Emas 999.9)', 'success');
+                });
+            });
+        });
+
+        // --- Custom Message Box (replacing alert()) ---
+        function showMessageBox(message, type) {
+            let messageBoxOverlay = document.getElementById('messageBoxOverlay');
+            if (!messageBoxOverlay) {
+                messageBoxOverlay = document.createElement('div');
+                messageBoxOverlay.id = 'messageBoxOverlay';
+                messageBoxOverlay.classList.add('message-box-overlay');
+                messageBoxOverlay.innerHTML = `
+                    <div class="message-box">
+                        <h3 id="messageBoxTitle"></h3>
+                        <p id="messageBoxContent"></p>
+                        <button id="messageBoxCloseBtn">OK</button>
+                    </div>
+                `;
+                document.body.appendChild(messageBoxOverlay);
+
+                const closeBtn = document.getElementById('messageBoxCloseBtn');
+                closeBtn.addEventListener('click', () => {
+                    messageBoxOverlay.classList.remove('show');
+                    setTimeout(() => {
+                        messageBoxOverlay.style.display = 'none';
+                    }, 300); 
+                });
+                messageBoxOverlay.addEventListener('click', (e) => {
+                    if (e.target === messageBoxOverlay) { 
+                        messageBoxOverlay.classList.remove('show');
+                        setTimeout(() => {
+                            messageBoxOverlay.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            }
+
+            messageBoxOverlay.style.display = 'flex'; 
+            void messageBoxOverlay.offsetWidth; 
+            
+            const messageBox = messageBoxOverlay.querySelector('.message-box');
+            const messageBoxTitle = document.getElementById('messageBoxTitle');
+            const messageBoxContent = document.getElementById('messageBoxContent');
+
+            messageBox.classList.remove('error', 'success'); 
+            messageBoxTitle.textContent = type === 'success' ? 'Tahniah!' : 'Ralat!'; 
+            messageBoxContent.textContent = message;
+
+            if (type === 'error') {
+                messageBox.classList.add('error');
+            } else if (type === 'success') {
+                messageBox.classList.add('success');
+            }
+            
+            messageBoxOverlay.classList.add('show');
+        }
+    </script>
+    <!-- HTML Kotak Mesej Custom (Pastikan ini ada dalam body) -->
+    <div id="messageBoxOverlay" class="message-box-overlay">
+        <div class="message-box">
+            <h3 id="messageBoxTitle"></h3>
+            <p id="messageBoxContent"></p>
+            <button id="messageBoxCloseBtn">OK</button>
+        </div>
+    </div>
+</body>
+</html>

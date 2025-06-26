@@ -4,14 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Selamat Hari Lahir, Sayangku! 🎉</title>
-    <!-- Google Fonts: Inter untuk tipografi yang lebih baik -->
+    <!-- Google Fonts: Inter for better typography -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome untuk ikon -->
+    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="">
-    
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-storage-compat.js"></script>
     
     <style>
         /* General Body Styling */
@@ -485,8 +481,9 @@
 </head>
 <body>
     <!-- Background Music (Autoplay might be blocked by browsers) -->
+    <!-- Place your beautiful song file in the 'music' folder of your GitHub repository -->
     <audio id="backgroundMusic" loop autoplay>
-        <source src="" type="audio/mpeg"> <!-- src akan ditetapkan oleh JS -->
+        <source src="music/beautiful_song.mp3" type="audio/mpeg"> 
         Your browser does not support the audio element.
     </audio>
 
@@ -496,7 +493,8 @@
 
     <main>
         <section class="hero-section">
-            <img id="coupleImage" src="./Image(102).jpg" alt="Gambar Abang dan Sayang" class="couple-image">
+            <!-- Place your couple image file in the 'images' folder of your GitHub repository -->
+            <img id="coupleImage" src="images/couple.jpg" alt="Gambar Abang dan Sayang" class="couple-image">
             <div class="message-card">
                 <p>
                     Wahai bidadari syurgaku, Selamat Ulang Tahun Kelahiran! Setiap tahun bersamamu adalah anugerah terindah yang tidak ternilai. Semoga usia yang bertambah ini membawa lebih banyak kebahagiaan, kesihatan yang berpanjangan, dan sentiasa dalam lindungan rahmat Allah SWT. Abang doakan sayang sentiasa bahagia dan impian sayang tercapai. Terima kasih atas setiap senyuman, tawa, dan kasih sayang yang tidak pernah putus. Kaulah cahaya dalam hidup abang. I love you, now and always! ❤️
@@ -507,24 +505,24 @@
 
         <section class="gallery-section">
             <div class="photo-grid">
-                <!-- Setiap gambar dibungkus dalam div.image-container untuk nisbah aspek 16:9 dan animasi -->
+                <!-- Place your memory images in the 'images' folder of your GitHub repository -->
                 <div class="image-container scroll-animate-image">
-                    <img id="memori1" src="" alt="Memori 1">
+                    <img id="memori1" src="images/memori1.jpg" alt="Memori 1">
                 </div>
                 <div class="image-container scroll-animate-image">
-                    <img id="memori2" src="" alt="Memori 2">
+                    <img id="memori2" src="images/memori2.jpg" alt="Memori 2">
                 </div>
                 <div class="image-container scroll-animate-image">
-                    <img id="memori3" src="" alt="Memori 3">
+                    <img id="memori3" src="images/memori3.jpg" alt="Memori 3">
                 </div>
                 <div class="image-container scroll-animate-image">
-                    <img id="memori4" src="" alt="Memori 4">
+                    <img id="memori4" src="images/memori4.jpg" alt="Memori 4">
                 </div>
                 <div class="image-container scroll-animate-image">
-                    <img id="memori5" src="" alt="Memori 5">
+                    <img id="memori5" src="images/memori5.jpg" alt="Memori 5">
                 </div>
                 <div class="image-container scroll-animate-image">
-                    <img id="memori6" src="" alt="Memori 6">
+                    <img id="memori6" src="images/memori6.jpg" alt="Memori 6">
                 </div>
             </div>
         </section>
@@ -554,92 +552,17 @@
     </footer>
 
     <script>
-        // Your web app's Firebase configuration.
-        // !!! PENTING: Gantikan placeholder di bawah dengan konfigurasi Firebase anda yang sebenar
-        //     yang boleh didapati dari Firebase Console anda. !!!
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET", // PENTING: Pastikan ini adalah Storage Bucket anda
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-
-        // Initialize Firebase
-        let storage;
-        let app; 
-        try {
-            app = firebase.initializeApp(firebaseConfig);
-            storage = firebase.storage(); // Inisialisasi Firebase Storage
-            console.log("Firebase app and Storage initialized successfully.");
-        } catch (error) {
-            console.error("Firebase initialization failed:", error);
-            showMessageBox("Gagal memulakan Firebase. Sila semak konfigurasi Firebase anda. Maklumat ralat: " + error.message, "error");
-        }
-
-        // Fungsi untuk memuatkan gambar dari Firebase Storage
-        async function loadImageFromFirebase(elementId, storagePath) {
-            if (!storage) {
-                console.error("Firebase Storage not initialized. Cannot load image.");
-                return;
-            }
-            const imageRef = storage.ref(storagePath);
-            try {
-                const url = await imageRef.getDownloadURL();
-                document.getElementById(elementId).src = url;
-                console.log(`Loaded image from ${storagePath}: ${url}`);
-            } catch (error) {
-                console.error(`Error loading image from ${storagePath}:`, error);
-                // Fallback ke gambar placeholder jika gagal memuatkan
-                document.getElementById(elementId).src = "https://placehold.co/400x400/CCCCCC/000000?text=Gagal+Memuat+Gambar";
-            }
-        }
-
-        // Fungsi untuk memuatkan audio dari Firebase Storage
-        async function loadAudioFromFirebase(elementId, storagePath, mimeType) {
-            if (!storage) {
-                console.error("Firebase Storage not initialized. Cannot load audio.");
-                return;
-            }
-            const audioRef = storage.ref(storagePath);
-            try {
-                const url = await audioRef.getDownloadURL();
-                const audioElement = document.getElementById(elementId);
-                audioElement.innerHTML = `<source src="${url}" type="${mimeType}">Your browser does not support the audio element.`;
-                audioElement.load(); // Muat semula elemen audio untuk apply sumber baru
-                console.log(`Loaded audio from ${storagePath}: ${url}`);
-            } catch (error) {
-                console.error(`Error loading audio from ${storagePath}:`, error);
-                // Tangani ralat, contoh: paparkan mesej atau matikan muzik
-            }
-        }
+        // No Firebase SDKs needed here, as images/audio are loaded directly from GitHub Pages.
+        // The Firebase code was removed because it was previously loading from Firebase Storage.
 
         window.addEventListener('load', () => {
             const music = document.getElementById('backgroundMusic');
             music.play().catch(error => {
-                console.log("Main automatik dihalang. Interaksi pengguna diperlukan untuk memainkan muzik."); 
+                console.log("Autoplay blocked. User interaction required to play music."); 
             });
         });
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Muat gambar utama pasangan
-            // Pastikan anda memuat naik 'couple.jpg' ke dalam folder 'images' di Firebase Storage anda
-            loadImageFromFirebase('coupleImage', 'images/couple.jpg'); 
-
-            // Muat gambar galeri memori
-            // Pastikan anda memuat naik 'memori1.jpg' hingga 'memori6.jpg' ke dalam folder 'images' di Firebase Storage anda
-            loadImageFromFirebase('memori1', 'images/memori1.jpg');
-            loadImageFromFirebase('memori2', 'images/memori2.jpg');
-            loadImageFromFirebase('memori3', 'images/memori3.jpg');
-            loadImageFromFirebase('memori4', 'images/memori4.jpg');
-            loadImageFromFirebase('memori5', 'images/memori5.jpg');
-            loadImageFromFirebase('memori6', 'images/memori6.jpg');
-
-            // Muat muzik latar belakang
-            // Pastikan anda memuat naik 'beautiful_song.mp3' ke dalam folder 'music' di Firebase Storage anda
-            loadAudioFromFirebase('backgroundMusic', 'music/beautiful_song.mp3', 'audio/mpeg'); // Contoh: audio/mpeg untuk .mp3
-
             const imageContainers = document.querySelectorAll('.image-container.scroll-animate-image');
 
             const observerOptions = {

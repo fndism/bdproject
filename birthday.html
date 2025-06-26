@@ -133,112 +133,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        /* Guestbook Section (Firebase integration) */
-        .guestbook-section {
-            margin-bottom: 40px;
-        }
-
-        .guestbook-section h2 {
-            text-align: center;
-            color: #4DD0E1; /* Biru/Cyan cerah untuk tajuk */
-            font-size: 2.2em;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #80DEEA; /* Garisan pemisah yang sepadan */
-            display: inline-block;
-            padding-bottom: 5px;
-            animation: fadeIn 1s ease-out forwards;
-            animation-delay: 1.6s;
-        }
-
-        .guestbook-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 30px;
-            animation: fadeIn 1s ease-out forwards;
-            animation-delay: 1.8s;
-        }
-
-        .guestbook-form input,
-        .guestbook-form textarea {
-            padding: 12px;
-            border: 1px solid #B2EBF2; /* Border biru muda lembut */
-            border-radius: 8px;
-            font-size: 1em;
-            color: #4A4A4A;
-            background-color: #F8F8F8;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .guestbook-form input:focus,
-        .guestbook-form textarea:focus {
-            border-color: #00BCD4; /* Biru terang pada fokus */
-            box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.2);
-            outline: none;
-        }
-
-        .guestbook-form button {
-            background-color: #64B5F6; /* Biru ceria untuk butang */
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .guestbook-form button:hover {
-            background-color: #42A5F5; /* Biru lebih gelap pada hover */
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .wishes-display {
-            background-color: #E3F2FD; /* Latar belakang biru sangat muda untuk ucapan */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
-            max-height: 400px; /* Ketinggian maksimum untuk ucapan yang boleh digulir */
-            overflow-y: auto; /* Dayakan pengguliran jika terlalu banyak ucapan */
-            animation: fadeIn 1s ease-out forwards;
-            animation-delay: 2s;
-        }
-
-        .wish-item {
-            background-color: #FFFFFF;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            border-left: 5px solid #81D4FA; /* Biru terang sebagai border kiri */
-        }
-
-        .wish-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .wish-item h3 {
-            color: #4A4A4A;
-            margin-top: 0;
-            margin-bottom: 5px;
-            font-size: 1.2em;
-        }
-
-        .wish-item p {
-            color: #666;
-            margin-bottom: 5px;
-            font-size: 0.95em;
-        }
-
-        .wish-item small {
-            color: #999;
-            font-size: 0.8em;
-            display: block; /* Pastikan cap masa berada di barisnya sendiri */
-            text-align: right;
-        }
+        /* Removed Guestbook Section CSS as it's no longer needed */
 
         /* New styles for the gift game section */
         .gift-game-section {
@@ -479,7 +374,7 @@
             }
 
             .gallery-section h2,
-            .guestbook-section h2,
+            /* Removed guestbook h2 */
             .gift-game-section h2 { /* Added gift game h2 */
                 font-size: 1.8em;
             }
@@ -493,12 +388,7 @@
                 height: 120px;
             }
 
-            .guestbook-form input,
-            .guestbook-form textarea,
-            .guestbook-form button {
-                font-size: 0.95em;
-                padding: 10px;
-            }
+            /* Removed guestbook form/textarea/button styles */
             .gift-box { /* Responsive for gift boxes */
                 width: 150px;
                 height: 150px;
@@ -539,7 +429,7 @@
             }
 
             .gallery-section h2,
-            .guestbook-section h2,
+            /* Removed guestbook h2 */
             .gift-game-section h2 { /* Added gift game h2 */
                 font-size: 1.6em;
             }
@@ -553,21 +443,8 @@
                 height: 100px;
             }
 
-            .wishes-display {
-                padding: 15px;
-            }
-
-            .wish-item {
-                padding: 10px;
-            }
-
-            .wish-item h3 {
-                font-size: 1.1em;
-            }
-
-            .wish-item p {
-                font-size: 0.85em;
-            }
+            /* Removed guestbook wishes-display styles */
+            /* Removed guestbook wish-item styles */
             .gift-box { /* Responsive for gift boxes */
                 width: 120px;
                 height: 120px;
@@ -620,27 +497,7 @@
             </div>
         </section>
 
-        <section class="guestbook-section">
-            <h2>Tinggalkan Ucapan!</h2>
-            <form id="wishForm" class="guestbook-form">
-                <input type="text" id="wishName" placeholder="Nama Anda" required>
-                <textarea id="wishMessage" placeholder="Ucapan Anda yang istimewa..." rows="4" required></textarea>
-                <button type="submit">Hantar Ucapan</button>
-            </form>
-            <div id="wishesDisplay" class="wishes-display">
-                <!-- Ucapan dari Firebase akan muncul di sini -->
-                <div class="wish-item">
-                    <h3>Abang</h3>
-                    <p>Selamat hari jadi sayang, semoga sentiasa dalam rahmat Allah dan bahagia di samping abang!</p>
-                    <small>25 Jun 2025, 08:00 AM</small>
-                </div>
-                <div class="wish-item">
-                    <h3>Kak Long</h3>
-                    <p>Happy Birthday! Semoga dipanjangkan umur dan murah rezeki. Sayang selalu!</p>
-                    <small>25 Jun 2025, 09:30 AM</small>
-                </div>
-            </div>
-        </section>
+        <!-- Bahagian Guestbook telah dibuang sepenuhnya seperti yang diminta -->
 
         <section class="gift-game-section">
             <h2>Nak Hadiah? Pilih salah satu hadiah di bawah:</h2>
@@ -666,114 +523,13 @@
         <p>Fendy <svg class="love-symbol" viewBox="0 0 24 24"><path d="M12 21.35l-1.84-1.83c-5.46-4.86-9.16-8.13-9.16-12.17 0-3.1 2.4-5.5 5.5-5.5 2.12 0 3.93 1.25 4.84 3.03.91-1.78 2.72-3.03 4.84-3.03 3.1 0 5.5 2.4 5.5 5.5 0 4.04-3.7 7.31-9.16 12.17L12 21.35z"/></svg> Shikin © 2025 and counting..</p>
     </footer>
 
-    <!-- Firebase SDK & Initialization -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <!-- Firebase SDK & Initialization (Dibuang kerana Guestbook telah dibuang) -->
+    <!-- Jika anda mempunyai kegunaan Firebase lain, sila masukkan semula kod SDK yang diperlukan -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script> -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script> -->
     <script>
-        // Your web app's Firebase configuration.
-        // !!! PENTING: Gantikan placeholder di bawah dengan konfigurasi Firebase anda yang sebenar
-        //     yang boleh didapati dari Firebase Console anda. !!!
-        // Contoh:
-        // const firebaseConfig = {
-        //   apiKey: "AIzaSyC...",
-        //   authDomain: "your-project-id.firebaseapp.com",
-        //   projectId: "your-project-id",
-        //   storageBucket: "your-project-id.appspot.com",
-        //   messagingSenderId: "...",
-        //   appId: "1:..."
-        // };
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-
-        // Initialize Firebase
-        let db; 
-        try {
-            const app = firebase.initializeApp(firebaseConfig);
-            db = firebase.firestore();
-            console.log("Firebase initialized successfully.");
-        } catch (error) {
-            console.error("Firebase initialization failed:", error);
-            showMessageBox("Gagal memulakan Firebase. Sila semak konfigurasi Firebase anda. Maklumat ralat: " + error.message, "error");
-        }
-
-
-        const wishForm = document.getElementById('wishForm');
-        const wishesDisplay = document.getElementById('wishesDisplay');
-
-        // Function to submit a wish
-        wishForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const name = document.getElementById('wishName').value;
-            const message = document.getElementById('wishMessage').value;
-
-            if (name.trim() === '' || message.trim() === '') {
-                showMessageBox('Nama dan ucapan tidak boleh kosong!', 'error');
-                return;
-            }
-
-            if (!db) { 
-                showMessageBox('Pangkalan data tidak tersedia. Sila cuba lagi kemudian.', 'error');
-                return;
-            }
-
-            try {
-                await db.collection("wishes").add({
-                    name: name,
-                    message: message,
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
-                });
-                showMessageBox('Ucapan anda telah dihantar!', 'success');
-                wishForm.reset(); 
-            } catch (error) {
-                console.error("Error adding document: ", error);
-                if (error.code === 'permission-denied') {
-                    showMessageBox('Maaf, tidak dapat menghantar ucapan. Kebenaran ditolak. Sila semak peraturan keselamatan Firestore anda.', 'error');
-                } else {
-                    showMessageBox('Maaf, ada masalah menghantar ucapan: ' + error.message, 'error');
-                }
-            }
-        });
-
-        // Function to display wishes in real-time
-        if (db) {
-            db.collection("wishes").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
-                wishesDisplay.innerHTML = ''; 
-                snapshot.forEach((doc) => {
-                    const wish = doc.data();
-                    const wishElement = document.createElement('div');
-                    wishElement.classList.add('wish-item');
-
-                    const date = wish.timestamp ? new Date(wish.timestamp.toDate()).toLocaleString('ms-MY', {
-                        year: 'numeric', month: 'long', day: 'numeric',
-                        hour: '2-digit', minute: '2-digit'
-                    }) : 'Memuatkan...'; 
-
-                    wishElement.innerHTML = `
-                        <h3>${wish.name}</h3>
-                        <p>${wish.message}</p>
-                        <small>${date}</small>
-                    `;
-                    wishesDisplay.appendChild(wishElement);
-                });
-            }, (error) => {
-                console.error("Error listening to wishes: ", error);
-                if (error.code === 'permission-denied') {
-                    wishesDisplay.innerHTML = `<p style="color: red;">Tidak dapat memuatkan ucapan: Kebenaran ditolak. Sila semak peraturan keselamatan Firestore anda.</p>`;
-                } else {
-                    wishesDisplay.innerHTML = `<p style="color: red;">Tidak dapat memuatkan ucapan: ${error.message}</p>`;
-                }
-            });
-        } else {
-            console.warn("Pangkalan data Firestore tidak dimulakan. Tidak dapat mendengar ucapan.");
-            wishesDisplay.innerHTML = `<p style="color: red;">Pangkalan data ucapan tidak tersedia. Sila semak konfigurasi Firebase anda.</p>`;
-        }
-
+        // Logik Firebase yang berkaitan dengan guestbook telah dibuang.
+        // Jika anda mempunyai kegunaan Firebase lain, sila letakkan kod inisialisasi di sini.
 
         // Optional: Play music after user interaction due to browser autoplay policies
         window.addEventListener('load', () => {
